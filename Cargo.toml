@@ -9,5 +9,8 @@ panic = "abort"
 [profile.release]
 panic = "abort"
 
-[dependencies]
+[target.'cfg(target_os="windows")'.dependencies]
 winapi = { version = "0.3.7", features = ["processthreadsapi", "winuser", "fileapi", "processenv", "winbase"] }
+
+[target.'cfg(target_os="linux")'.dependencies]
+libc = { version = "0.2", default-features = false }
