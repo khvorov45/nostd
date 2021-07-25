@@ -59,7 +59,8 @@ fn write_stdout(text: &str) -> Result<(), Error> {
 pub extern "C" fn main(_argc: isize, _argv: *const *const u8) -> isize {
     use libc::exit;
 
-    let _rc = write_stdout("Hello, world!\n\0");
+    let _rc = write_stdout("Hello, world!\n");
+
     unsafe {
         exit(0);
     }
@@ -67,12 +68,11 @@ pub extern "C" fn main(_argc: isize, _argv: *const *const u8) -> isize {
 
 #[cfg(target_os = "linux")]
 fn write_stdout(text: &str) -> Result<(), Error> {
-    use libc::printf;
+    use libc::{write, STDOUT_FILENO};
 
-    // NOTE(sen) `printf` expects null-terminated strings
-    let result = unsafe { printf(text.as_ptr() as *const _) };
+    let result = unsafe { write(STDOUT_FILENO, text.as_ptr() as *const _, text.len()) };
 
-    if result as usize == text.len() - 1 {
+    if result as usize == text.len() {
         Ok(())
     } else {
         Err(Error::WriteFileError)

@@ -1,4 +1,4 @@
 {
   "rust-analyzer.checkOnSave.allTargets": false,
-  "cSpell.words": ["DWORD", "ctypes", "printf", "processenv", "winnt"]
+  "cSpell.words": ["DWORD", "FILENO", "ctypes", "printf", "processenv", "winnt"]
 }
