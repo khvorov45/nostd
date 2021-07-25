@@ -1,0 +1,13 @@
+[package]
+name = "nostd"
+version = "0.1.0"
+edition = "2018"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+[dependencies]
+winapi = { version = "0.3.7", features = ["processthreadsapi", "winuser", "fileapi", "processenv", "winbase"] }
